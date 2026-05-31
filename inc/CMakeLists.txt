@@ -14,7 +14,7 @@ target_include_directories(fontforge_common_headers
 
 target_link_libraries(fontforge_common_headers
   INTERFACE
-    GLIB::GLIB
+    glib::glib
 )
 
 if(ENABLE_CODE_COVERAGE_RESULT)
