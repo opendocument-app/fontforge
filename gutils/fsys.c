@@ -158,6 +158,11 @@ char *GFileGetHomeDir(void) {
 return buffer;
     }
 return NULL;
+#elif defined(__ANDROID__)
+    static char *dir;
+    dir = getenv("HOME");
+    if ( dir!=NULL )
+	return( copy(dir) );
 #else
     static char *dir;
     uid_t uid;
@@ -814,6 +819,9 @@ const char *getUserHomeDir(void) {
 return dir;
 	}
 return NULL;
+#elif defined(__ANDROID__)
+	char *home = getenv("HOME");
+  return home;
 #else
 	uid_t uid;
 	struct passwd *pw;
