@@ -46,8 +46,10 @@ set(FONTFORGE_NOINST_HEADERS
   scstyles.h
   sfd.h
   spiro.h
+  splinechar.h
   splinefill.h
   splinefit.h
+  splinefont_enums.h
   splineorder2.h
   splineoverlap.h
   splinerefigure.h
@@ -217,6 +219,9 @@ add_library(fontforge
   zapfnomen.c
 )
 
+set_target_properties(fontforge PROPERTIES PUBLIC_HEADER "${FONTFORGE_INST_HEADERS}")
+set_target_properties(fontforge PROPERTIES PRIVATE_HEADER "${FONTFORGE_NOINST_HEADERS}")
+
 if(ENABLE_WOFF2_RESULT)
   target_sources(fontforge PRIVATE woff2.cc)
 endif()
@@ -281,11 +286,13 @@ else()
   target_link_libraries(fontforge PRIVATE gunicode gutils)
 endif()
 
-# No dev package -> no need to install if static
-if(BUILD_SHARED_LIBS)
-  if(WIN32 OR CYGWIN)
-    install(TARGETS fontforge RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  else()
-    install(TARGETS fontforge RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-  endif()
+install(TARGETS fontforge
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+build_option(INSTALL_PRIVATE_HEADERS BOOL OFF "Install private FontForge headers")
+if(INSTALL_PRIVATE_HEADERS)
+  install(TARGETS fontforge PRIVATE_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
