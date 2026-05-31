@@ -241,7 +241,7 @@ target_link_libraries(fontforge
     fontforge_common_headers
     Freetype::Freetype
     LibXml2::LibXml2
-    GLIB::GLIB
+    glib::glib
     Intl::Intl
   PRIVATE
     MathLib::MathLib

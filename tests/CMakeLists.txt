@@ -10,7 +10,7 @@ if(NOT ENABLE_NATIVE_SCRIPTING AND NOT ENABLE_PYTHON_SCRIPTING_RESULT)
 endif()
 
 add_executable(systestdriver systestdriver.c)
-target_link_libraries(systestdriver PRIVATE GLIB::GLIB)
+target_link_libraries(systestdriver PRIVATE glib::glib)
 if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(systestdriver PRIVATE -Wall -pedantic)
 endif()
