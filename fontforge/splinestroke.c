@@ -41,7 +41,11 @@
 #include "utanvec.h"
 
 #include <assert.h>
+#if defined(__ANDROID__) && __ANDROID_API__ < 23
+#include <openlibm.h>
+#else
 #include <complex.h>
+#endif
 #include <math.h>
 
 #define CIRCOFF 0.551915
