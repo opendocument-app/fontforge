@@ -105,7 +105,7 @@ set_font_family(mono "${FONT_FAMILIES_MONO}")
 
 # Required and default dependencies
 # Note: When adding a dependency, ensure it has an imported target (wherever appropriate) 
-find_package(Freetype 2.3.7 REQUIRED)
+find_package(freetype REQUIRED)
 find_package(Gettext REQUIRED)
 find_package_with_target(Intl REQUIRED)
 if(UNIX AND NOT APPLE)
